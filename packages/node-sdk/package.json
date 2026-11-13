@@ -1,6 +1,6 @@
 {
   "name": "@unnits/unnisign-sdk",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "Node.js client SDK for the UnniSign signing platform.",
   "license": "MIT",
   "type": "module",
@@ -12,7 +12,12 @@
       "import": "./dist/index.js"
     }
   },
-  "files": ["dist", "src", "README.md", "LICENSE"],
+  "files": [
+    "dist",
+    "src",
+    "README.md",
+    "LICENSE"
+  ],
   "sideEffects": false,
   "repository": {
     "type": "git",
