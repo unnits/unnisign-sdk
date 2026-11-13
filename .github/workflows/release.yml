@@ -43,8 +43,6 @@ jobs:
           fi
           npm version "$VERSION" --workspace=@unnits/unnisign-sdk --no-git-tag-version --ignore-scripts --allow-same-version
       - run: npm publish --workspace=@unnits/unnisign-sdk --access public --provenance
-        env:
-          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
 
   composer:
     if: startsWith(github.ref, 'refs/tags/php-sdk/v')
