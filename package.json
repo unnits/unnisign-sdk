@@ -1,0 +1,14 @@
+{
+  "name": "unnisign-sdk-monorepo",
+  "private": true,
+  "workspaces": ["packages/node-sdk"],
+  "scripts": {
+    "build": "npm run build --workspaces",
+    "typecheck": "npm run typecheck --workspaces",
+    "test": "npm run test --workspaces",
+    "check": "npm run typecheck && npm test && npm run build"
+  },
+  "engines": {
+    "node": ">=22"
+  }
+}

@@ -1,0 +1,10 @@
+node_modules/
+dist/
+vendor/
+.phpunit.cache/
+.phpstan/
+.mago/
+coverage/
+*.tgz
+.env
+.DS_Store
