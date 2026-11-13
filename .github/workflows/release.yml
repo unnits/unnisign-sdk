@@ -33,10 +33,15 @@ jobs:
           cache: npm
           registry-url: https://registry.npmjs.org
       - run: npm ci
-      - name: Verify tag matches package version
+      - name: Set package version from release tag
         run: |
-          VERSION=$(node -p "JSON.parse(require('node:fs').readFileSync('packages/node-sdk/package.json', 'utf8')).version")
-          test "$GITHUB_REF_NAME" = "node-sdk/v$VERSION"
+          set -euo pipefail
+          VERSION="${GITHUB_REF_NAME#node-sdk/v}"
+          if [[ ! "$VERSION" =~ ^(0|[1-9][0-9]*)\.(0|[1-9][0-9]*)\.(0|[1-9][0-9]*)$ ]]; then
+            echo "::error::Expected a stable release tag such as node-sdk/v1.2.3."
+            exit 1
+          fi
+          npm version "$VERSION" --workspace=@unnits/unnisign-sdk --no-git-tag-version --ignore-scripts --allow-same-version
       - run: npm publish --workspace=@unnits/unnisign-sdk --access public --provenance
         env:
           NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}

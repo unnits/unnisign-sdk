@@ -50,7 +50,9 @@ Packages are independently versioned, starting at `0.1.0`. Publishing is trigger
 3. Add environment secret `NPM_TOKEN`: an npm granular access token scoped for publishing this package (with the permissions/2FA bypass required by your npm organization).
 4. After initial publication, npm trusted publishing can replace the token: configure this repository's `release.yml` workflow and `npm` environment as a trusted publisher. The workflow already grants OIDC permission and requests provenance.
 
-To release, update `packages/node-sdk/package.json` and the root `package-lock.json`, commit them, then create and push a tag such as `node-sdk/v0.1.0`. The tag must match the package version. The workflow builds and publishes only the Node workspace, including declarations, README, and license.
+To release, commit and push the code, then create and push a stable tag such as `node-sdk/v0.1.0`. The Git tag is the source of truth: the workflow sets the Node package version from the tag in its temporary checkout before building and publishing. No manual version bump or release commit is needed; the checked-in manifests are not changed by CI. Only stable `node-sdk/vX.Y.Z` tags are accepted (no prereleases or leading zeros).
+
+The workflow builds and publishes only the Node workspace, including declarations, README, and license. Always tag a commit containing the current release workflow. Rerunning an older failed release still uses that older commit and workflow; use a fresh release tag rather than reusing existing tags.
 
 ### Composer / Packagist — one-time setup
 
